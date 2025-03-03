@@ -50,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     // Query SQL a la BD -> Crearla acá (No está completada, cambiarla a su contexto y a su analogía)
     $query = <<<SQL
         SELECT
-            publicacion.identificador as identificador, SUM(comentario.comment_rank) AS total
+            publicacion.id_publicacion as identificador, SUM(comentario.comment_rank) AS total
         FROM 
-            publicacion JOIN comentario ON publicacion.identificador = comentario.identificador_publicacion
+            publicacion JOIN comentario ON publicacion.id_publicacion = comentario.id_publicacion
         WHERE 
             comentario.fecha_creacion BETWEEN '$fecha1' and '$fecha2'
         GROUP BY 
-            publicacion.identificador
+            publicacion.id_publicacion
         HAVING
-            publicacion.identificador = '$identificador'
+            publicacion.id_publicacion = '$identificador'
         UNION ALL
             SELECT 
                 '$identificador' AS identificador, 
@@ -66,9 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
             WHERE NOT EXISTS (
                 SELECT 1
                 FROM publicacion 
-                JOIN comentario ON publicacion.identificador = comentario.identificador_publicacion
+                JOIN comentario ON publicacion.id_publicacion = comentario.id_publicacion
                 WHERE comentario.fecha_creacion BETWEEN '$fecha1' AND '$fecha2'
-                AND publicacion.identificador = '$identificador'
+                AND publicacion.id_publicacion = '$identificador'
             );
     SQL;
 

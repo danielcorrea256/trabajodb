@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
     FROM 
         comentario AS comentario1, publicacion, tema_de_debate 
     WHERE (  
-        comentario1.identificador_publicacion = publicacion.identificador and publicacion.identificador_tema_de_debate = tema_de_debate.identificador
-        AND EXISTS(SELECT * FROM comentario AS comentario2 WHERE comentario2.identificador_comentario_anterior = comentario1.identificador)
-        AND tema_de_debate.identificador = '$identificador'
+        comentario1.id_publicacion = publicacion.id_publicacion and publicacion.id_tema = tema_de_debate.id_tema
+        AND EXISTS(SELECT * FROM comentario AS comentario2 WHERE comentario2.id_comentario_anterior = comentario1.id_comentario)
+        AND tema_de_debate.id_tema = '$identificador'
     );
     SQL;
     // Ejecutar la consulta
@@ -83,12 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["identificador"]; ?></td>
+                <td class="text-center"><?= $fila["id_comentario"]; ?></td>
                 <td class="text-center"><?= $fila["contenido"]; ?></td>
                 <td class="text-center"><?= $fila["fecha_creacion"]; ?></td>
                 <td class="text-center"><?= $fila["comment_rank"]; ?></td>
-                <td class="text-center"><?= $fila["identificador_publicacion"]; ?></td>
-                <td class="text-center"><?= $fila["identificacion_comentario_anterior"]; ?></td>
+                <td class="text-center"><?= $fila["id_publicacion"]; ?></td>
+                <td class="text-center"><?= $fila["id_comentario_anterior"]; ?></td>
             </tr>
 
             <?php

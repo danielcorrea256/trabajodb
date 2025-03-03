@@ -11,8 +11,8 @@ include "../includes/header.php";
     <form action="tema_de_debate_insert.php" method="post" class="form-group">
 
         <div class="mb-3">
-            <label for="identificador" class="form-label">Identificador</label>
-            <input type="number" class="form-control" id="identificador" name="identificador" required>
+            <label for="id_tema" class="form-label">Identificador</label>
+            <input type="number" class="form-control" id="id_tema" name="id_tema" required>
         </div>
 
         <div class="mb-3">
@@ -58,13 +58,13 @@ if($resultadoTemaDeDebate and $resultadoTemaDeDebate->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["identificador"]; ?></td>
+                <td class="text-center"><?= $fila["id_tema"]; ?></td>
                 <td class="text-center"><?= $fila["titulo"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="tema_de_debate_delete.php" method="post">
-                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["identificador"]; ?>">
+                        <input hidden type="int" name="identificadorEliminar" value="<?= $fila["id_tema"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

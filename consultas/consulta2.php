@@ -16,37 +16,37 @@ require('../config/conexion.php');
 // Query SQL a la BD -> Crearla acá (No está completada, cambiarla a su contexto y a su analogía)
 $query = <<<SQL
 SELECT 
-    tema_de_debate.identificador as identificador, tema_de_debate.titulo as titulo
+    tema_de_debate.id_tema as identificador, tema_de_debate.titulo as titulo
 FROM 
     comentario as comentario1, publicacion, tema_de_debate
 WHERE (
-    comentario1.identificador_publicacion = publicacion.identificador
+    comentario1.id_publicacion = publicacion.id_publicacion
     AND
-    publicacion.identificador_tema_de_debate = tema_de_debate.identificador
+    publicacion.id_tema = tema_de_debate.id_tema
 )
 GROUP BY 
-    tema_de_debate.identificador, tema_de_debate.titulo
+    tema_de_debate.id_tema, tema_de_debate.titulo
 HAVING (
         SELECT 
             COUNT(*) 
         FROM
         (
             SELECT 
-                publicacion_aux.identificador_tema_de_debate
+                publicacion_aux.id_tema
             FROM 
                 comentario as comentario_aux
                 INNER JOIN
-                publicacion as publicacion_aux ON comentario_aux.identificador_publicacion = publicacion_aux.identificador
+                publicacion as publicacion_aux ON comentario_aux.id_publicacion = publicacion_aux.id_publicacion
             GROUP BY
-                publicacion_aux.identificador_tema_de_debate
+                publicacion_aux.id_tema
             HAVING (
-                COUNT(comentario_aux.identificador) > COUNT(comentario1.identificador)
+                COUNT(comentario_aux.id_comentario) > COUNT(comentario1.id_comentario)
                 OR
-                (COUNT(comentario_aux.identificador) = COUNT(comentario1.identificador) AND publicacion_aux.identificador_tema_de_debate < tema_de_debate.identificador)
+                (COUNT(comentario_aux.id_comentario) = COUNT(comentario1.id_comentario) AND publicacion_aux.id_tema < tema_de_debate.id_tema)
             ) 
         ) as temas_de_debate_con_mayor_comentarios
 ) < 2
-ORDER BY COUNT(*) DESC, tema_de_debate.identificador ASC;
+ORDER BY COUNT(*) DESC, tema_de_debate.id_tema ASC;
 SQL;
 
 // Ejecutar la consulta

@@ -16,27 +16,27 @@ require('../config/conexion.php');
 // Query SQL a la BD -> Crearla acá (No está completada, cambiarla a su contexto y a su analogía)
 $query = $query = <<<SQL
 SELECT
-    comentario1.identificador AS comment_identificador,
+    comentario1.id_comentario AS comment_identificador,
     comentario1.contenido AS comment_contenido,
     comentario1.fecha_creacion AS comment_fecha_creacion,
     comentario1.comment_rank AS comment_rank,
-    comentario1.identificador_publicacion AS comment_identificador_publicacion,
-    comentario1.identificador_comentario_anterior AS comment_identificador_comentario_anterior,
-    publicacion.identificador AS publicacion_identificador,
+    comentario1.id_publicacion AS comment_identificador_publicacion,
+    comentario1.id_comentario_anterior AS comment_identificador_comentario_anterior,
+    publicacion.id_publicacion AS publicacion_identificador,
     publicacion.titulo AS publicacion_titulo,
     publicacion.contenido AS publicacion_contenido,
     publicacion.publication_rank as publication_rank,
-    publicacion.imagen_link as publication_imagen_link,
-    publicacion.identificador_tema_de_debate as identificador_tema_de_debate
+    publicacion.archivo_adjunto as publication_archivo_adjunto,
+    publicacion.id_tema as identificador_tema_de_debate
 FROM
     comentario AS comentario1
     INNER JOIN 
-    publicacion ON comentario1.identificador_publicacion = publicacion.identificador
+    publicacion ON comentario1.id_publicacion = publicacion.id_publicacion
 WHERE (
     SELECT COUNT(*) FROM comentario AS comentario2 
         WHERE (
             comentario2.comment_rank > comentario1.comment_rank 
-            OR (comentario2.comment_rank = comentario1.comment_rank AND comentario2.identificador < comentario1.identificador)
+            OR (comentario2.comment_rank = comentario1.comment_rank AND comentario2.id_comentario < comentario1.id_comentario)
         )
 ) < 3
 ORDER BY comment_rank DESC, comment_identificador ASC;
@@ -70,7 +70,7 @@ if($resultadoC1 and $resultadoC1->num_rows > 0):
                 <th scope="col" class="text-center">Titulo Publicacion</th>
                 <th scope="col" class="text-center">Contenido Publicacion</th>
                 <th scope="col" class="text-center">PublicationRank</th>
-                <th scope="col" class="text-center">Link Imagen</th>
+                <th scope="col" class="text-center">Archivo Adjunto Publicacion</th>
                 <th scope="col" class="text-center">Identificador Tema De Debate</th>
             </tr>
         </thead>
@@ -94,7 +94,7 @@ if($resultadoC1 and $resultadoC1->num_rows > 0):
                 <td class="text-center"><?= $fila["publicacion_titulo"]; ?></td>
                 <td class="text-center"><?= $fila["publicacion_contenido"]; ?></td>
                 <td class="text-center"><?= $fila["publication_rank"]; ?></td>
-                <td class="text-center"><?= $fila["publication_imagen_link"]; ?></td>
+                <td class="text-center"><?= $fila["publication_archivo_adjunto"]; ?></td>
                 <td class="text-center"><?= $fila["identificador_tema_de_debate"]; ?></td>
             </tr>
 

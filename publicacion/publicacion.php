@@ -11,8 +11,8 @@ include "../includes/header.php";
     <form action="publicacion_insert.php" method="post" class="form-group">
 
         <div class="mb-3">
-            <label for="identificador" class="form-label">Identificador</label>
-            <input type="number" class="form-control" id="identificador" name="identificador" required>
+            <label for="id_publicacion" class="form-label">Identificador Publicacion</label>
+            <input type="number" class="form-control" id="id_publicacion" name="id_publicacion" required>
         </div>
 
         <div class="mb-3">
@@ -31,14 +31,14 @@ include "../includes/header.php";
         </div>
 
         <div class="mb-3">
-            <label for="imagen_link" class="form-label">Link Imagen</label>
-            <input type="text" class="form-control" id="imagen_link" name="imagen_link">
+            <label for="archivo_adjunto" class="form-label">Archivo Adjunto</label>
+            <input type="text" class="form-control" id="archivo_adjunto" name="archivo_adjunto" required>
         </div>
         
         <!-- Consultar la lista de temas de debate y desplegarlos -->
         <div class="mb-3">
-            <label for="identificador_tema_de_debate" class="form-label">Tema de Debate</label>
-            <select name="identificador_tema_de_debate" id="identificador_tema_de_debate" class="form-select">
+            <label for="id_tema" class="form-label">Tema de Debate</label>
+            <select name="id_tema" id="id_tema" class="form-select">
                 
                 <!-- Option por defecto -->
                 <option value="" selected disabled hidden></option>
@@ -55,7 +55,7 @@ include "../includes/header.php";
                 ?>
 
                 <!-- Opción que se genera -->
-                <option value="<?= $fila["identificador"]; ?>"><?= $fila["titulo"]; ?></option>
+                <option value="<?= $fila["id_tema"]; ?>"><?= $fila["titulo"]; ?></option>
 
                 <?php
                         // Cerrar los estructuras de control
@@ -91,7 +91,7 @@ if($resultadoPublicacion and $resultadoPublicacion->num_rows > 0):
                 <th scope="col" class="text-center">Titulo</th>
                 <th scope="col" class="text-center">Contenido</th>
                 <th scope="col" class="text-center">PublicationRank</th>
-                <th scope="col" class="text-center">Link Imagen</th>
+                <th scope="col" class="text-center">Archivo Adjunto</th>
                 <th scope="col" class="text-center">Identificador Tema De Debate</th>
                 <th scope="col" class="text-center">Acciones</th>
             </tr>
@@ -107,17 +107,17 @@ if($resultadoPublicacion and $resultadoPublicacion->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["identificador"]; ?></td>
+                <td class="text-center"><?= $fila["id_publicacion"]; ?></td>
                 <td class="text-center"><?= $fila["titulo"]; ?></td>
                 <td class="text-center"><?= $fila["contenido"]; ?></td>
                 <td class="text-center"><?= $fila["publication_rank"]; ?></td>
-                <td class="text-center"><?= $fila["imagen_link"]; ?></td>
-                <td class="text-center"><?= $fila["identificador_tema_de_debate"]; ?></td>
+                <td class="text-center"><?= $fila["archivo_adjunto"]; ?></td>
+                <td class="text-center"><?= $fila["id_tema"]; ?></td>
                 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="publicacion_delete.php" method="post">
-                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["identificador"]; ?>">
+                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["id_publicacion"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

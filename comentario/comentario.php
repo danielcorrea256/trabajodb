@@ -4,6 +4,7 @@ include "../includes/header.php";
 
 <!-- TÍTULO. Cambiarlo, pero dejar especificada la analogía -->
 <h1 class="mt-3">Entidad análoga a REPARACION (COMENTARIO)</h1>
+<h3>Nota: Al insertar un comentario como version corregio de un comentario original, ambos comentarios tiene que hacer referencia a la misma publicacion</h1>
 
 <!-- FORMULARIO. Cambiar los campos de acuerdo a su trabajo -->
 <div class="formulario p-4 m-3 border rounded-3">
@@ -11,8 +12,8 @@ include "../includes/header.php";
     <form action="comentario_insert.php" method="post" class="form-group">
 
         <div class="mb-3">
-            <label for="identificador" class="form-label">Identificador</label>
-            <input type="number" class="form-control" id="identificador" name="identificador" required>
+            <label for="id_comentario" class="form-label">Identificador</label>
+            <input type="number" class="form-control" id="id_comentario" name="id_comentario" required>
         </div>
 
         <div class="mb-3">
@@ -33,8 +34,8 @@ include "../includes/header.php";
 
          <!-- Consultar la lista de clientes y desplegarlos -->
         <div class="mb-3">
-            <label for="identificador_publicacion" class="form-label">Publicacion</label>
-            <select name="identificador_publicacion" id="identificador_publicacion" class="form-select">
+            <label for="id_publicacion" class="form-label">Publicacion</label>
+            <select name="id_publicacion" id="id_publicacion" class="form-select">
                 
                 <!-- Option por defecto -->
                 <option value="" selected disabled hidden></option>
@@ -51,7 +52,7 @@ include "../includes/header.php";
                 ?>
 
                 <!-- Opción que se genera -->
-                <option value="<?= $fila["identificador"]; ?>"><?= $fila["titulo"]; ?></option>
+                <option value="<?= $fila["id_publicacion"]; ?>"><?= $fila["titulo"]; ?></option>
 
                 <?php
                         // Cerrar los estructuras de control
@@ -63,8 +64,8 @@ include "../includes/header.php";
 
          <!-- Consultar la lista de clientes y desplegarlos -->
          <div class="mb-3">
-            <label for="identificador_comentario_anterior" class="form-label">Comentario Original</label>
-            <select name="identificador_comentario_anterior" id="identificador_comentario_anterior" class="form-select">
+            <label for="id_comentario_anterior" class="form-label">Comentario Original</label>
+            <select name="id_comentario_anterior" id="id_comentario_anterior" class="form-select">
                 
                 <!-- Option por defecto -->
                 <option value="" selected disabled hidden></option>
@@ -81,7 +82,7 @@ include "../includes/header.php";
                 ?>
 
                 <!-- Opción que se genera -->
-                <option value="<?= $fila["identificador"]; ?>"><?= $fila["contenido"]; ?></option>
+                <option value="<?= $fila["id_comentario"]; ?>"><?= $fila["contenido"]; ?></option>
 
                 <?php
                         // Cerrar los estructuras de control
@@ -132,17 +133,17 @@ if($resultadoComentario and $resultadoComentario->num_rows > 0):
             <!-- Fila que se generará -->
             <tr>
                 <!-- Cada una de las columnas, con su valor correspondiente -->
-                <td class="text-center"><?= $fila["identificador"]; ?></td>
+                <td class="text-center"><?= $fila["id_comentario"]; ?></td>
                 <td class="text-center"><?= $fila["contenido"]; ?></td>
                 <td class="text-center"><?= $fila["fecha_creacion"]; ?></td>
                 <td class="text-center"><?= $fila["comment_rank"]; ?></td>
-                <td class="text-center"><?= $fila["identificador_publicacion"]; ?></td>
-                <td class="text-center"><?= $fila["identificador_comentario_anterior"]; ?></td>
+                <td class="text-center"><?= $fila["id_publicacion"]; ?></td>
+                <td class="text-center"><?= $fila["id_comentario_anterior"]; ?></td>
 
                 <!-- Botón de eliminar. Debe de incluir la CP de la entidad para identificarla -->
                 <td class="text-center">
                     <form action="comentario_delete.php" method="post">
-                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["identificador"]; ?>">
+                        <input hidden type="text" name="identificadorEliminar" value="<?= $fila["id_comentario"]; ?>">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>

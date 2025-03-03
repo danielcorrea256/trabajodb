@@ -4,20 +4,20 @@
 require('../config/conexion.php');
 
 // Sacar los datos del formulario. Cada input se identifica con su "name"
-$identificador = $_POST["identificador"];
+$id_comentario = $_POST["id_comentario"];
 $contenido = $_POST["contenido"];
 $fecha_creacion = $_POST["fecha_creacion"];
 $comment_rank = $_POST["comment_rank"];
-$identificador_publicacion = $_POST["identificador_publicacion"];
-$identificador_comentario_anterior = $_POST["identificador_comentario_anterior"];
+$id_publicacion = $_POST["id_publicacion"];
+$id_comentario_anterior = $_POST["id_comentario_anterior"];
 
-if (empty($identificador_comentario_anterior)) {
+if (empty($id_comentario_anterior)) {
 	// Query SQL a la BD. Si tienen que hacer comprobaciones, hacerlas acá (Generar una query diferente para casos especiales)
-	$query = "INSERT INTO `comentario`(`identificador`,`contenido`, `fecha_creacion`, `comment_rank`, `identificador_publicacion`) VALUES ('$identificador', '$contenido', '$fecha_creacion', '$comment_rank', '$identificador_publicacion')";
+	$query = "INSERT INTO `comentario`(`id_comentario`,`contenido`, `fecha_creacion`, `comment_rank`, `id_publicacion`) VALUES ('$id_comentario', '$contenido', '$fecha_creacion', '$comment_rank', '$id_publicacion')";
 }
 else {
 	// Query SQL a la BD. Si tienen que hacer comprobaciones, hacerlas acá (Generar una query diferente para casos especiales)
-	$query = "INSERT INTO `comentario`(`identificador`,`contenido`, `fecha_creacion`, `comment_rank`, `identificador_publicacion`, `identificador_comentario_anterior`) VALUES ('$identificador', '$contenido', '$fecha_creacion', '$comment_rank', '$identificador_publicacion', '$identificador_comentario_anterior')";
+	$query = "INSERT INTO `comentario`(`id_comentario`,`contenido`, `fecha_creacion`, `comment_rank`, `id_publicacion`, `id_comentario_anterior`) VALUES ('$id_comentario', '$contenido', '$fecha_creacion', '$comment_rank', '$id_publicacion', '$id_comentario_anterior')";
 }
 
 // Ejecutar consulta
